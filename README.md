@@ -1,18 +1,38 @@
+
 # Practica Cloud Java 2022-2023
 
-Aitor Iturrioz & Pablo Rubio 
+Aitor Iturrioz & Pablo Rubio
 
 Este repositorio es el código inicial del ejercicio principal del Curso Cloud de Tknika.
+
+---
+
+#Caracteristicas del devcontainer
+
+| Tipo de devcontainer  | Java                  |
+| --------------------- | --------------------- |
+| **Features**    | Maven instalado       |
+|                       | Docker in Docker      |
+| **Extensiones** | Java extension pack   |
+|                       | Spring Extension pack |
+|                       | Markdown Office       |
+|                       | Git History           |
+|                       | GitHub Actions        |
+|                       | Docker                |
+
+---
+
+#Caracteristicas de la aplicación
 
 Es una rest API simple con tres métodos:
 
     GET persona/{id}
 
-    PUT persona/add pasando la persona en el cuerpot
+    PUT persona/add pasando la persona en el cuerpo
 
     GET persona/init para introducir 3 datos en la BBDD.
 
-Utiliza Maven como gestor de paquetes, por lo que:
+Se ha utilizado Maven como gestor de paquetes, por lo que:
 
 Para empaquetar el proyecto usar:
 
@@ -26,9 +46,9 @@ Generar la documentación:
 
     mvn javadoc:javadoc
 
-Tras hacer mvn package para ejecutar la aplicación debemos ejecutar.
+Tras hacer mvn package, para ejecutar la aplicación debemos ejecutar.
 
-    java -jar ./targe/*.jar
+    java -jar ./target/*.jar
 
 Para utilizar una BBDD, primero debemos añadir la dependencia del conector mysql al pom.xml y luego modificar el fichero PersistenceBeanConfiguration.java
 
@@ -38,10 +58,9 @@ DE:
     IPersonaGBD getIPersonaGDB() throws InvalidAttributeValueException, NumberFormatException, IOException
     {
       File f = new File("datos.txt");
-      
-      return new TextBD(f);
-    }
 
+    return new TextBD(f);
+    }
 
 A:
 
@@ -50,10 +69,9 @@ A:
     {
         Session session = getSession();
 
-        return new HibernatePersonaDB(session);
+    return new HibernatePersonaDB(session);
 
     }
-    
 
 Opciones de la aplicación java.
 
