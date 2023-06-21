@@ -26,9 +26,7 @@ public class PersistenceBeanConfiguration {
     @Bean
     IPersonaGBD getIPersonaGDB() throws InvalidAttributeValueException, NumberFormatException, IOException
     {
-      Session session = getSession();
-
-      return new HibernatePersonaDB(session);
+          return new TextBD();
     }
 
 
