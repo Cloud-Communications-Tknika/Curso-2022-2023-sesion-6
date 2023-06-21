@@ -1,4 +1,3 @@
-
 # Practica Cloud Java 2022-2023
 
 Aitor Iturrioz & Pablo Rubio
@@ -7,77 +6,26 @@ Este repositorio es el código inicial del ejercicio principal del Curso Cloud d
 
 ---
 
-#Caracteristicas del devcontainer
+**Ejercicio:**
 
-| Tipo de devcontainer  | Java                  |
-| --------------------- | --------------------- |
-| **Features**    | Maven instalado       |
-|                       | Docker in Docker      |
-| **Extensiones** | Java extension pack   |
-|                       | Spring Extension pack |
-|                       | Markdown Office       |
-|                       | Git History           |
-|                       | GitHub Actions        |
-|                       | Docker                |
+Desarrolla un GitHub Action que al crear un tag nuevo publique un contenedor en GitHub Registry (en tu repositorio).
 
----
+**Pistas:**
 
-#Caracteristicas de la aplicación
+Se puede realizar utilizando los mismo action que para DockerHub.
 
-Es una rest API simple con tres métodos:
+Necesitaras un OAuth Token de GitHub.
 
-    GET persona/{id}
+El nombre de tu usuario se puede obtener mediante: ${{ github.actor }}
 
-    PUT persona/add pasando la persona en el cuerpo
+Antes del push conviene utilizar el siguiente action: (Teniendo en cuenta que env.REGISTRY es el repositorio (ghcr.io) e Image name el nombre completo de tu repositorio)
 
-    GET persona/init para introducir 3 datos en la BBDD.
+```
 
-Se ha utilizado Maven como gestor de paquetes, por lo que:
+```
 
-Para empaquetar el proyecto usar:
+Y así definir el tag del contenedor con:
 
-    mvn package
+```
 
-Para realizar los test:
-
-    mvn test
-
-Generar la documentación:
-
-    mvn javadoc:javadoc
-
-Tras hacer mvn package, para ejecutar la aplicación debemos ejecutar.
-
-    java -jar ./target/*.jar
-
-Para utilizar una BBDD, primero debemos añadir la dependencia del conector mysql al pom.xml y luego modificar el fichero PersistenceBeanConfiguration.java
-
-DE:
-
-    @Bean
-    IPersonaGBD getIPersonaGDB() throws InvalidAttributeValueException, NumberFormatException, IOException
-    {
-      File f = new File("datos.txt");
-
-    return new TextBD(f);
-    }
-
-A:
-
-    @Bean
-    IPersonaGBD getIPersonaGDB() throws InvalidAttributeValueException, NumberFormatException, IOException
-    {
-        Session session = getSession();
-
-    return new HibernatePersonaDB(session);
-
-    }
-
-Opciones de la aplicación java.
-
-    -Ddbhost: Dirección del host de la BBDD, default: 127.0.0.1
-    -Ddbport: Puerto de la BBDD, default: 3306
-    -Ddbuser: Ususario de la BBDD, default: root
-    -Ddbpassword: Contraseña de la BBDD, default: root
-    -Ddbdatabase: nombre de la base de datos, default: database1
-    -Dport: Puerto en el que se ejecuta la aplicación, default: 8080
+```
